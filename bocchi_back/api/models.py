@@ -23,7 +23,6 @@ class Ticket(models.Model):
     ticket_id = models.CharField(max_length=255, unique=True)
     event_name = models.CharField(max_length=255)
     event_date = models.DateTimeField()
-    ticket_type = models.CharField(max_length=50)  # e.g., VIP, General Admission
     price = models.DecimalField(max_digits=10, decimal_places=2)
     purchased_at = models.DateTimeField(auto_now_add=True)
 
@@ -39,29 +38,4 @@ class Merch(models.Model):
 
     def __str__(self):
         return self.item_name   
-    
-class Vynil(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    album_name = models.CharField(max_length=255)
-    artist_name = models.CharField(max_length=255)
-    release_date = models.DateField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    purchased_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.album_name} by {self.artist_name}"
-    
-class Notifications(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    message = models.TextField()
-    is_read = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Notification for {self.user.username}" 
-    
-    
-
-
-# Class User, Ticket, Merch, Merch, Notifications, Vynil, Group
 
