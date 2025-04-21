@@ -1,21 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
 
-class Group(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-=======
-from users.models import User
-from groups.models import Group
->>>>>>> 4b54f8d5eedfda34690926438be090fe634711f4
-    
 class Ticket(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
     ticket_id = models.CharField(max_length=255, unique=True)
     event_name = models.CharField(max_length=255)
     event_date = models.DateTimeField()
@@ -26,7 +11,6 @@ class Ticket(models.Model):
         return f"{self.event_name} - {self.event_date}"    
     
 class Merch(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=255)
     item_description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
