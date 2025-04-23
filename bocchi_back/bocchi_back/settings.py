@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'api',
     'users',
     'groups',
-    'rest_framework.authtocken',
     'rest_framework_simplejwt'
 ]
 REST_FRAMEWORK = {
