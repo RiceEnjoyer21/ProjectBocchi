@@ -1,16 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+from groups.models import Group
 
-class myAccoutManager(BaseUserManager):
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    bio = models.TextField(max_length=500, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    favorite_groups = models.ManyToManyField(Group, blank=True, related_name='fans')
     
-
-class User(models.Model):
-    username = models.CharField(max_length=150, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=128)
-
-
-
     def __str__(self):
-        return self.username
-
-# Create your models here.
+        return f"{self.user.username}'s profile"
