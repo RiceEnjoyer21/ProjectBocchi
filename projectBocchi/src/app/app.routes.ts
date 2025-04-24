@@ -20,7 +20,7 @@ export const routes: Routes = [
   { path: 'groups/:id/merch/:merchId', component: MerchDetailComponent },
   { path: 'groups/:id/tickets', component: TicketsComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'user/tickets', component: UsersticketsComponent, canActivate: [AuthGuard] },
-  { path: 'user/merch', component: UsersmerchComponent, canActivate: [AuthGuard] },
-  { path: 'user/merch/:id', component: MerchDetailComponent, canActivate: [AuthGuard] },
+  { path: 'tickets', component: UsersticketsComponent, canActivate: [AuthGuard] },
+  { path: 'merch', component: UsersmerchComponent, canActivate: [AuthGuard] },
+  { path: 'merch/:id', component: MerchDetailComponent, canActivate: [AuthGuard] },
 ];
