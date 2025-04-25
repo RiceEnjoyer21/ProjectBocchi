@@ -1,0 +1,139 @@
+<!-- edit-profile.component.html -->
+<div class="edit-profile-container">
+    <div *ngIf="loading" class="loading">
+      <p>Loading profile...</p>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  
+    <div *ngIf="!loading && !error && user">
+      <h1>Edit Profile</h1>
+      
+      <div *ngIf="saveSuccess" class="success-message">
+        <p>Profile updated successfully! Redirecting...</p>
+      </div>
+      
+      <form (ngSubmit)="onSubmit()" #profileForm="ngForm" class="profile-form">
+        <div class="avatar-section">
+          <div class="avatar-preview">
+            <img 
+              *ngIf="avatarPreview" 
+              [src]="avatarPreview" 
+              alt="Avatar preview"
+            >
+            <div *ngIf="!avatarPreview" class="avatar-placeholder">
+              {{ user.username.charAt(0).toUpperCase() }}
+            </div>
+          </div>
+          
+          <div class="avatar-controls">
+            <div class="avatar-upload-container">
+              <label for="avatar-upload" class="upload-label">Change Avatar</label>
+              <input 
+                type="file" 
+                id="avatar-upload" 
+                accept="image/*" 
+                (change)="onFileChange($event)"
+                class="file-input"
+              >
+            </div>
+            
+            <button 
+              *ngIf="avatarPreview"
+              type="button" 
+              class="remove-avatar-button" 
+              (click)="removeAvatar()"
+            >
+              Remove Avatar
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            name="firstName"
+            [(ngModel)]="profileModel.first_name" 
+            required
+            #firstName="ngModel"
+            class="form-control"
+            [class.invalid]="firstName.invalid && firstName.touched"
+          >
+          <div *ngIf="firstName.invalid && firstName.touched" class="error-hint">
+            First name is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            name="lastName"
+            [(ngModel)]="profileModel.last_name" 
+            required
+            #lastName="ngModel"
+            class="form-control"
+            [class.invalid]="lastName.invalid && lastName.touched"
+          >
+          <div *ngIf="lastName.invalid && lastName.touched" class="error-hint">
+            Last name is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            [(ngModel)]="profileModel.email" 
+            required
+            email
+            #emailField="ngModel"
+            class="form-control"
+            [class.invalid]="emailField.invalid && emailField.touched"
+          >
+          <div *ngIf="emailField.invalid && emailField.touched" class="error-hint">
+            <span *ngIf="emailField.errors?.['required']">Email is required</span>
+            <span *ngIf="emailField.errors?.['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="bio">Bio</label>
+          <textarea 
+            id="bio" 
+            name="bio"
+            [(ngModel)]="profileModel.bio" 
+            class="form-control bio-textarea"
+            rows="4"
+            placeholder="Tell us something about yourself..."
+          ></textarea>
+        </div>
+        
+        <div class="button-group">
+          <button 
+            type="button" 
+            class="cancel-button" 
+            (click)="cancel()"
+            [disabled]="saving"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="save-button" 
+            [disabled]="profileForm.invalid || saving || !hasChanges()"
+          >
+            <span *ngIf="!saving">Save Changes</span>
+            <span *ngIf="saving">Saving...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

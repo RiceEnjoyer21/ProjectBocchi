@@ -10,6 +10,8 @@ import { MerchListComponent } from './merch-list/merch-list.component';
 import { UsersmerchComponent } from './usersmerch/usersmerch.component';
 import { MerchDetailComponent } from './merch-detail/merch-detail.component';
 import { AuthGuard } from './auth.guard';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -19,7 +21,9 @@ export const routes: Routes = [
   { path: 'groups/:id/merch', component: MerchListComponent },
   { path: 'groups/:id/merch/:merchId', component: MerchDetailComponent },
   { path: 'groups/:id/tickets', component: TicketsComponent },
+  { path: 'register', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/edit', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'tickets', component: UsersticketsComponent, canActivate: [AuthGuard] },
   { path: 'merch', component: UsersmerchComponent, canActivate: [AuthGuard] },
   { path: 'merch/:id', component: MerchDetailComponent, canActivate: [AuthGuard] },

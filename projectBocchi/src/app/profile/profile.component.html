@@ -1,1 +1,50 @@
-<p>profile works!</p>
+<div class="profile-container">
+    <div *ngIf="loading" class="loading">
+      <p>Loading profile...</p>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+  
+    <div *ngIf="!loading && !error && user" class="profile-content">
+      <div class="profile-header">
+        <div class="avatar-container">
+          <img 
+            *ngIf="user.profile?.avatar" 
+            [src]="user.profile.avatar" 
+            alt="Profile avatar"
+            class="profile-avatar"
+          >
+          <div *ngIf="!user.profile?.avatar" class="avatar-placeholder">
+            {{ user.username.charAt(0).toUpperCase() }}
+          </div>
+        </div>
+        
+        <div class="profile-info">
+          <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+          <p class="username">{{ user.username }}</p>
+          <p class="email">{{ user.email }}</p>
+        </div>
+        
+        <button class="edit-button" (click)="navigateToEdit()">Edit Profile</button>
+      </div>
+  
+      <div class="profile-details">
+        <div class="bio-section">
+          <h2>Bio</h2>
+          <p *ngIf="user.profile?.bio">{{ user.profile.bio }}</p>
+          <p *ngIf="!user.profile?.bio" class="empty-bio">No bio provided</p>
+        </div>
+  
+        <div class="favorite-groups" *ngIf="user.profile?.favorite_groups?.length">
+          <h2>Favorite Groups</h2>
+          <ul class="groups-list">
+            <li *ngFor="let group of user.profile.favorite_groups">
+              <a [routerLink]="['/groups', group.id]">{{ group.name }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
